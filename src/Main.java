@@ -1,5 +1,6 @@
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
@@ -75,39 +76,105 @@ public class Main {
 
         // String vs StringBuffer(동기화-> 멀티쓰레드) vs StringBuilder(동기화x -> 단일쓰레드)
 
-        String a = ""; // 레퍼런스변수 -> 힙 메모리
-        StringBuffer ab = new StringBuffer("");
-        StringBuilder ac = new StringBuilder("");
+//        String a = ""; // 레퍼런스변수 -> 힙 메모리
+//        StringBuffer ab = new StringBuffer("");
+//        StringBuilder ac = new StringBuilder("");
+//
+//        long start1 = System.currentTimeMillis();
+//        for(int i =0; i<100000; i++){
+//            a += "hello";
+//
+//        }
+//        long end1 = System.currentTimeMillis();
+//
+//        long start2 = System.currentTimeMillis();
+//        for(int i =0; i<100000; i++){
+//            ab.append("hello");
+//
+//        }
+//        long end2 = System.currentTimeMillis();
+//
+//        long start3 = System.currentTimeMillis();
+//        for(int i =0; i<100000; i++){
+//            ac.append("hello");
+//
+//        }
+//        long end3 = System.currentTimeMillis();
+//
+//
+//
+//        System.out.println("a: "+(end1-start1));
+//        System.out.println("ab: "+(end2-start2));
+//        System.out.println("ac: "+(end3-start3));
 
-        long start1 = System.currentTimeMillis();
-        for(int i =0; i<100000; i++){
-            a += "hello";
 
+        // Map -> forEach -> keySet, value ,entrySet(k=v)
+        Map<String, Object> pmap = new HashMap<>();
+
+        pmap.put("1", "dsg");
+        pmap.put("2", "kmb");
+        pmap.put("3", "lbk");
+
+
+        System.out.println("pmap: "+ pmap);
+
+
+        System.out.println("1===========================");
+        for (String key : pmap.keySet()) {
+            System.out.println(pmap.get(key));
         }
-        long end1 = System.currentTimeMillis();
 
-        long start2 = System.currentTimeMillis();
-        for(int i =0; i<100000; i++){
-            ab.append("hello");
-
+        System.out.println("2===========================");
+        for(Object value:pmap.values()){
+            System.out.println(value);
         }
-        long end2 = System.currentTimeMillis();
 
-        long start3 = System.currentTimeMillis();
-        for(int i =0; i<100000; i++){
-            ac.append("hello");
-
+        System.out.println("3===========================");
+        for (String key : pmap.keySet()) {
+            System.out.println(key);
         }
-        long end3 = System.currentTimeMillis();
+
+        System.out.println("4===========================");
+        for (Entry<String, Object> val : pmap.entrySet()) {
+            System.out.println("val: "+val.getValue()+", key: "+val.getKey());
+        }
+
+        System.out.println("======forEach메서드(최신)============");
+        // value 추출
+        pmap.entrySet() // k=v
+                .stream()
+                .map(Entry::getValue)
+                .forEach(System.out::println);
+
+        System.out.println("=====================");
+        pmap.keySet()
+                .forEach(System.out::println);
+        System.out.println("====================");
+        pmap.values()
+                .forEach(System.out::println);
 
 
+        // iterator === > stream
+        List<String> stringList = Arrays.asList("월", "화", "수", "목", "금");
 
-        System.out.println("a: "+(end1-start1));
-        System.out.println("ab: "+(end2-start2));
-        System.out.println("ac: "+(end3-start3));
+//        Iterator<String> iterator = stringList.iterator();
+//
+//        while (iterator.hasNext()) {
+//            System.out.println("iterator.next(): "+iterator.next());
+//
+//            var day = iterator.next();
+//            System.out.println("day: "+ day);
+//
+//            if (day.equals("수")) {
+//                iterator.remove();  // NoSuchElementException
+//            }
+//        }
 
+        // stream으로 하는 게 너무 편하다 iterator는 안쓴다. 요즘엔
+        Stream<String> stringStream = stringList.stream();
 
-
+        stringStream.filter(s -> !"수".equals(s))
+                .forEach(System.out::println);
 
 
     }
