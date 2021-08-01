@@ -189,6 +189,7 @@ public class Main {
                 .filter(s->s.contains("ja"))  // map boolean : 조건식x String::toUppercase
 //                .filter(i -> i%2==0)        // filer 실제 값으로 나온다. stream return
                 .forEach(System.out::println);
+        //
 
 
     }
