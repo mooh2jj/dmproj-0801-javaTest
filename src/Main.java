@@ -181,5 +181,15 @@ public class Main {
 //                .forEach(System.out::println);
 
 
+        // stream 연습 예시
+        List<String> strings = Arrays.asList("java", "dsg", "kmb", "lbk");
+
+        strings.stream()
+//                .mapToInt(i -> Integer.parseInt(i))
+                .filter(s->s.contains("ja"))  // map boolean : 조건식x String::toUppercase
+//                .filter(i -> i%2==0)        // filer 실제 값으로 나온다. stream return
+                .forEach(System.out::println);
+
+
     }
 }
