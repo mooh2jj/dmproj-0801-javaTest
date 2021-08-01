@@ -73,6 +73,42 @@ public class Main {
         System.out.println("substring: "+ substring);
 
 
+        // String vs StringBuffer(동기화-> 멀티쓰레드) vs StringBuilder(동기화x -> 단일쓰레드)
+
+        String a = ""; // 레퍼런스변수 -> 힙 메모리
+        StringBuffer ab = new StringBuffer("");
+        StringBuilder ac = new StringBuilder("");
+
+        long start1 = System.currentTimeMillis();
+        for(int i =0; i<100000; i++){
+            a += "hello";
+
+        }
+        long end1 = System.currentTimeMillis();
+
+        long start2 = System.currentTimeMillis();
+        for(int i =0; i<100000; i++){
+            ab.append("hello");
+
+        }
+        long end2 = System.currentTimeMillis();
+
+        long start3 = System.currentTimeMillis();
+        for(int i =0; i<100000; i++){
+            ac.append("hello");
+
+        }
+        long end3 = System.currentTimeMillis();
+
+
+
+        System.out.println("a: "+(end1-start1));
+        System.out.println("ab: "+(end2-start2));
+        System.out.println("ac: "+(end3-start3));
+
+
+
+
 
     }
 }
